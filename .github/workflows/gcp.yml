@@ -1,1 +1,21 @@
 name: my gcp workflow
+
+on: push
+
+jobs:
+  id:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: read
+      id-token: write
+      
+    steps:
+      - uses: 'actions/checkout@v3'
+      
+      - id: 'auth'
+        name: 'Authenticate to Google Gloud'
+        uses: 'google-github-actions/auth@v0'
+        with:
+          workload_identity_provider: 'projects/298487802069/locations/global/workloadIdentityPools/github-pool/providers/github-provider'
+          service_account: 'github-mythbai@regal-bonito-307806.iam.gserviceaccount.com'
